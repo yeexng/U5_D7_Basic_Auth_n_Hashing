@@ -331,13 +331,13 @@ blogPostsRouter.put(
 blogPostsRouter.get(
   "/me/stories",
   basicAuthMiddleware,
-
   async (req, res, next) => {
     try {
-      console.log(req.author._id);
-      const blogPosts = await BlogPostsModel.find({
-        author: { $in: [req.author._id] },
-      }).populate("author");
+      const authorId = req.author._id;
+      // const blogPosts = await BlogPostsModel.find({
+      //   author: { $in: [req.author._id] },
+      // }).populate("author");
+      console.log(authorId);
       res.send(blogPosts);
     } catch (error) {
       next(error);
