@@ -331,9 +331,10 @@ blogPostsRouter.put(
 blogPostsRouter.get(
   "/me/stories",
   basicAuthMiddleware,
-  adminOnlyMiddleware,
+
   async (req, res, next) => {
     try {
+      console.log(req.author._id);
       const blogPosts = await BlogPostsModel.find({
         author: { $in: [req.author._id] },
       }).populate("author");
