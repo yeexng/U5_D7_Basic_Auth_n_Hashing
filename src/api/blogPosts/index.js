@@ -333,11 +333,14 @@ blogPostsRouter.get(
   basicAuthMiddleware,
   async (req, res, next) => {
     try {
-      const authorId = req.author._id;
+      const author = req.user._id;
+      console.log(author);
+      const blogPosts = await BlogPostsModel.find({
+        author: { $in: [req.user._id] },
+      }).populate("author");
       // const blogPosts = await BlogPostsModel.find({
       //   author: { $in: [req.author._id] },
       // }).populate("author");
-      console.log(authorId);
       res.send(blogPosts);
     } catch (error) {
       next(error);
