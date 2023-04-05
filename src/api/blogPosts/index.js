@@ -336,11 +336,8 @@ blogPostsRouter.get(
       const author = req.user._id;
       console.log(author);
       const blogPosts = await BlogPostsModel.find({
-        author: { $in: [req.user._id] },
+        author: { $in: [req.user._id] }, //req.user refer to the basic.js as the middleware passes the value
       }).populate("author");
-      // const blogPosts = await BlogPostsModel.find({
-      //   author: { $in: [req.author._id] },
-      // }).populate("author");
       res.send(blogPosts);
     } catch (error) {
       next(error);
